@@ -1,0 +1,2 @@
+Paruoškite duomenų bazės kopiją:
+mysqldump -u root -p db_books > db_books.sql

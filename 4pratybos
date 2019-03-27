@@ -1,0 +1,9 @@
+Suskaičiuokite kiek knygų kiekvieno autoriaus yra duomenų bazėje.
+Itraukiant autorius kurie neturi knygu:
+SELECT authors.name, count(books.authorId) as 'Number of books' FROM authors LEFT JOIN books ON authors.authorId = books.authorId GROUP BY name;
+
+Ju neitraukiant:
+SELECT authors.name, count(books.authorid) as 'Number of books' FROM authors INNER JOIN books ON authors.authorId = books.authorId GROUP BY name;
+
+Pašalinkite autorius, kurie neturi knygų:
+DELETE authors FROM authors LEFT JOIN books ON authors.authorId = books.authorId WHERE books.authorId IS NULL;

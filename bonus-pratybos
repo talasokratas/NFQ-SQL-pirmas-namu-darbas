@@ -1,0 +1,15 @@
+Straipsniai saugomi lentelėje News (newsId, text, date), straipsnio komentarai saugomi lentelėje Comments (commentId, text, date, newsId).
+Išrinkite 10 naujausių straipsnių su paskutiniu parašytu komentaru (newsId, newsDate, newsText, commentDate, commentText ).
+
+SELECT news.newsId, news.date, news.text, comments.date, comments.text
+FROM news
+  JOIN comments
+    ON comments.commentId =
+       ( SELECT comments.commentId
+         FROM comments
+         WHERE comments.newsId = news.newsId
+         ORDER BY comments.date DESC
+         LIMIT 1
+       )
+ORDER by news.date DESC
+LIMIT 10;

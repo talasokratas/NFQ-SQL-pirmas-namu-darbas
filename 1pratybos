@@ -1,0 +1,9 @@
+Išrinkite visus įrašus iš Knygų lentelės:
+SELECT books.* FROM books;
+
+Išrinkite tik Knygų pavadinimus abėcėles tvarka:
+SELECT books.title FROM books ORDER BY title;
+
+Suskaičiuokite, kiek knygų kiekvieno autoriaus yra knygų lentelėje:
+SELECT books.authorId, Count(*) as 'Number Of Books' FROM books WHERE books.authorID IS NOT NULL GROUP BY books.authorId;
+

@@ -1,0 +1,51 @@
+Papildyti duomenų bazę kad būtų galima:
+Knygos gali turėti vieną ir daugiau autorių.
+
+Neleido priskirti Foreign Key, todel pakeiciau Authors engine i InnoDB
+ALTER TABLE authors ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `book_author` (
+  authorId int(11) NOT NULL,
+  bookId int(11) NOT NULL,
+  FOREIGN KEY (bookId) REFERENCES books (bookId) ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY (authorID) REFERENCES authors (authorId) ON DELETE RESTRICT ON UPDATE CASCADE,
+  PRIMARY KEY (bookId, authorId)
+);
+
+Sutvarkyti duomenų bazės duomenis, jei reikia papildykite naujais.
+
+a) ikeliam turimus bei papildomus naujus duomenis i nauja lentele
+INSERT INTO book_author (bookId, authorId)
+VALUES
+(1,1),
+(2,2),
+(3,4),
+(4,6),
+(5,7),
+(1,4),
+(2,6),
+(3,6),
+(3,1);
+
+b)Ištrinti author id stulpelį iš books lentelės:
+ALTER TABLE books DROP authorId;
+
+
+
+Išrinkite visas knygas su jų autoriais. (autorius, jei jų daugiau nei vienas atskirkite kableliais):
+
+SELECT books.bookId, books.title,
+GROUP_CONCAT(authors.name SEPARATOR ', ') authors
+FROM books
+INNER JOIN book_author
+ON books.bookId = book_author.bookId
+INNER JOIN authors
+ON book_author.authorID = authors.authorID
+GROUP BY books.bookID;
+
+
+
+Sutvarkykite  knygų lentelę, kad galėtumėte išsaugoti originalų knygos pavadinimą. (Pavadinime išsaugokite, lietuviškas raides kaip ą,ė,š ir pan.)
+
+ALTER TABLE books MODIFY title varchar(255) CHARACTER SET utf8 COLLATE utf8_lithuanian_ci;
+ALTER TABLE books CHARACTER SET = utf8 COLLATE = utf8_lithuanian_ci;

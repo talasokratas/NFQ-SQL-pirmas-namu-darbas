@@ -1,0 +1,2 @@
+Pašalinkite jūsų įrašytus autorius. (pagal ID):
+DELETE FROM authors WHERE authorId IN (9, 10);

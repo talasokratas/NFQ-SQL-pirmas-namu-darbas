@@ -1,0 +1,22 @@
+Papildykite autorių lentelę 2 įrašais:
+INSERT INTO authors (name) VALUES ('Robert Smith'),('Frank Black');
+
+Papildykite knygų lentelę, 3 įrašais apie knygas, kurių autorius įrašėte prieš tai:
+Paprastai irasant id:
+INSERT INTO books (title, year, authorId)
+VALUES
+('Good Times', 1999, 8),
+('Bad Times', 2000, 8),
+('In the time of my ruin', 2003, 9);
+
+Su sub selectais:
+INSERT INTO books (title, year, authorId)
+VALUES
+('Good Times', 1999, (SELECT authors.authorId FROM authors WHERE name = 'Robert Smith')),
+('Bad Times', 2000, (SELECT authors.authorId FROM authors WHERE name = 'Robert Smith')),
+('In the time of my ruin', 2003, (SELECT authors.authorId FROM authors WHERE name = 'Frank Black'));
+
+Pakeiskite vienos knygos autorių į kitą:
+UPDATE books SET authorId = 10 WHERE title = 'Learning Python, 4th Edition';
+
+
